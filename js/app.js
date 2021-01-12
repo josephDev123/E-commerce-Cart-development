@@ -2,25 +2,35 @@
 const cart_info = document.getElementById('cart-info');
 const cart = document.getElementById('cart');
 const item_icon_wrapper = document.querySelectorAll('.store-item-icon');
+const clear_cart = document.getElementById('clear');
 
+const cartWrapperId =  document.querySelectorAll('#itemWrapper');
+const total_wrapper = document.querySelector('.cart-total-container');
+let cartArr =localStorage.getItem('cartItem')?JSON.parse(localStorage.getItem('cartItem')):[];
 
-
-// event listener
+//show and hide cart items by toggling
 cart_info.addEventListener('click', function(){
 cart.classList.toggle('show-cart');
 
 });
 
+// if(cartArr.length > 0){
+//  cartArr.forEach(items =>{
+// console.log(items.name);
+//  }) 
+// }
+
+
+
 
 //clicking on item-cart
-
 item_icon_wrapper.forEach((icon)=>{
 
 icon.addEventListener('click', (e)=>{
 
     const items = {};
     
-  //    product name
+  //    product image
     //slicing image link to obtain only the image text
     const index = e.target.parentElement.children[0].src.indexOf('img'); 
     const img= e.target.parentElement.children[0].src.substr(index+3);
@@ -33,14 +43,15 @@ icon.addEventListener('click', (e)=>{
 //    product price
    const item_price = +e.target.parentElement.nextElementSibling.children[0].children[1].textContent.substr(1).trim();
    items.price = item_price;
-   console.log(items);
+   
 
 
 //    display product img, item and name in cart 
-
 const cart_item = document.createElement('div');
-cart_item.classList.add("cart-item","d-flex","justify-content-between","text-capitalize","my-3");
-cart_item.innerHTML= `
+cart_item.id='itemWrapper';
+// if(cart_item.classList.add("cart-item","d-flex","justify-content-between","text-capitalize","my-3") == null){
+    cart_item.classList.add("cart-item","d-flex","justify-content-between","text-capitalize","my-3");
+    cart_item.innerHTML= `
     <img src="img-cart${items.image}" class="img-fluid rounded-circle" id="item-img" alt="">
     <div class="cart-item-text">
 
@@ -48,20 +59,51 @@ cart_item.innerHTML= `
     <span>$</span>
     <span id="cart-item-price" class="cart-item-price" class="mb-0">${items.price}</span>
     </div>
-    <a href="#" id='cart-item-remove' class="cart-item-remove">
+    <a href="#" id='cart-item-remove' class="cart-item-remove" onClick="removeCart()">
     <i class="fas fa-trash"></i>
     </a>    
 
 `;
-const total_wrapper = document.querySelector('.cart-total-container');
+
+//push object to array
+cartArr.push(items); 
+
+//insert array cart into localstorage
+localStorage.setItem('cartItem', JSON.stringify(cartArr));
+
 cart.insertBefore(cart_item, total_wrapper);
+// cart.appendChild(cart_item);
 alert('item added to cart');
  showTotal();
 
-})
 
 })
 
+});
+
+// delete each item 
+function removeCart(){
+const displayCartDiv = document.querySelector('.cart-item');
+displayCartDiv.remove();
+showTotal();
+}
+
+//clear all item
+function clearAllItem(){
+const clearAll = document.getElementById('clear');
+clearAll.addEventListener('click', ()=>{
+    const alldisplayCartDiv = document.querySelectorAll('.cart-item');
+    alldisplayCartDiv.forEach(item =>{
+        item.remove();
+        showTotal();
+    })
+    
+})
+}
+clearAllItem()
+
+
+//
 function showTotal(){
     const priceDom = document.querySelectorAll('#cart-item-price');
     const total = [];
@@ -86,18 +128,8 @@ function showTotal(){
     // total price of item selected
     const itemTotal = document.querySelector('.item-total');
     itemTotal.textContent = totalMoney.toFixed(2);
-}
+};
 
-
-
-const itemDelete = document.querySelectorAll('#cart-item-remove');
-itemDelete.forEach(item => {
-    item.addEventListener('click', DeleteItem)
-});
-
-function DeleteItem(){
-    console.log('hello world');
-}
 
 
 
