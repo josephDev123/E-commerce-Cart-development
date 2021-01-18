@@ -1,7 +1,7 @@
 ## E-commerce website: developing Cart using Vaniila JavaScript
 
 ## Link:
-[E-commerce website link](https://exchange-rate123.netlify.app/)
+[E-commerce website link](https://e-commerce124.netlify.app/)
 
 ## Features:
 ```
