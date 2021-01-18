@@ -3,7 +3,7 @@
 ## Link:
 [E-commerce website link](https://e-commerce124.netlify.app/)
 
-## Features
+## Features:
 ```
 Adding item to Cart
 Deleting or removing each item from Cart 
