@@ -97,7 +97,7 @@ body {
   padding: 2rem 1.5rem;
   transform: rotateY(-360deg);
 }
-.cart-item {
+.cart-item{
   transition: all 2s ease-in-out;
 }
 

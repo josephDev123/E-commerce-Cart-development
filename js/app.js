@@ -6,6 +6,7 @@ const clear_cart = document.getElementById('clear');
 
 const cartWrapperId =  document.querySelectorAll('#itemWrapper');
 const total_wrapper = document.querySelector('.cart-total-container');
+let cartItemObj =[];
 let cartArr =localStorage.getItem('cartItem')?JSON.parse(localStorage.getItem('cartItem')):[];
 
 //show and hide cart items by toggling
@@ -66,10 +67,11 @@ cart_item.id='itemWrapper';
 `;
 
 //push object to array
-cartArr.push(items); 
+// cartArr.push(items); 
+cartItemObj.push(items)
 
 //insert array cart into localstorage
-localStorage.setItem('cartItem', JSON.stringify(cartArr));
+localStorage.setItem('cartItemData', JSON.stringify(cartItemObj));
 
 cart.insertBefore(cart_item, total_wrapper);
 // cart.appendChild(cart_item);
@@ -86,6 +88,10 @@ function removeCart(){
 const displayCartDiv = document.querySelector('.cart-item');
 displayCartDiv.remove();
 showTotal();
+const removeText= displayCartDiv.children[1].children[0].textContent;
+
+cartItemObj = cartItemObj.filter(element => element.name !== removeText); 
+localStorage.setItem('cartItemData', JSON.stringify(cartItemObj));
 }
 
 //clear all item
@@ -96,6 +102,8 @@ clearAll.addEventListener('click', ()=>{
     alldisplayCartDiv.forEach(item =>{
         item.remove();
         showTotal();
+        cartItemObj = [];
+        localStorage.clear();
     })
     
 })
