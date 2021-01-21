@@ -5,9 +5,10 @@
 
 ## Features:
 ```
-Adding item to Cart
-Deleting or removing each item from Cart 
-clearing all item at once
+- Adding item to Cart
+- Deleting or removing each item from Cart and from localstorage
+- clearing all item at once from Cart and from localstorage
+- Adding cart item to localstorage to retain cart item after refreshing of web page
 ```
 ## Author:
 Uzuegbu, Joseph
