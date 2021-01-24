@@ -95,6 +95,7 @@ icon.addEventListener('click', (e)=>{
     //slicing image link to obtain only the image text
     const index = e.target.parentElement.children[0].src.indexOf('img'); 
     const img= e.target.parentElement.children[0].src.substr(index+3);
+    console.log(img);
    items.image = img;
 
 //    product name
@@ -148,11 +149,12 @@ function removeCart(){
 const displayCartDiv = document.querySelector('.cart-item');
 displayCartDiv.remove();
 showTotal();
-const removeText= displayCartDiv.children[1].children[0].textContent;
-// const removeText= displayCartDiv.children[0].src.indexOf('sweet');
-// const index = displayCartDiv.children[0].src.substr(63-1)
-// console.log();
-cartItemObj = cartItemObj.filter(element => element.name !== removeText); 
+//get the starting point index of the image from the http(link)
+const removeImageIndex= displayCartDiv.children[0].src.indexOf('sweet');
+//extract image base on the index point 
+const removeImage = displayCartDiv.children[0].src.substr(63-1);
+
+cartItemObj = cartItemObj.filter(element => element.image !== removeImage); 
 localStorage.setItem('cartItemData', JSON.stringify(cartItemObj));
 }
 
