@@ -153,7 +153,6 @@ showTotal();
 const removeImageIndex= displayCartDiv.children[0].src.indexOf('sweet');
 //extract image base on the index point 
 const removeImage = displayCartDiv.children[0].src.substr(63-1);
-
 cartItemObj = cartItemObj.filter(element => element.image !== removeImage); 
 localStorage.setItem('cartItemData', JSON.stringify(cartItemObj));
 }
