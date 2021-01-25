@@ -40,7 +40,6 @@ if (cartArr.length > 0) {
 
     
     //push object to array
-
     cartItemObj.push(items)
     
     //insert array cart into localstorage
@@ -127,7 +126,6 @@ cart_item.id='itemWrapper';
 `;
 
 //push object to array
-// cartArr.push(items); 
 cartItemObj.push(items)
 
 //insert array cart into localstorage
@@ -200,6 +198,20 @@ function showTotal(){
     itemTotal.textContent = totalMoney.toFixed(2);
 };
 
+//checkout
+paypal.Buttons({
+    createOrder: function(data, actions) {
+      // This function sets up the details of the transaction, including the amount and line item details.
+      
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '0.01'
+          }
+        }]
+      });
+    }
+  
+}
 
-
-
+).render('#checkout');
