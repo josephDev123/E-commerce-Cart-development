@@ -181,7 +181,7 @@ function showTotal(){
     });
    
 // total price of item selected
-    const totalMoney = total.reduce((acc,item)=>{
+    var totalMoney = total.reduce((acc,item)=>{
         acc+=item;
         return acc;
     },0)
@@ -189,16 +189,20 @@ function showTotal(){
     cart_total.textContent = totalMoney.toFixed(2)
 
 
-// total amount of item selected
+// total item selected
     const itemCount = document.getElementById('item-count');
     itemCount.textContent = total.length;
 
     // total price of item selected
     const itemTotal = document.querySelector('.item-total');
     itemTotal.textContent = totalMoney.toFixed(2);
+    
 };
 
+
+
 //checkout
+var data = 
 paypal.Buttons({
     createOrder: function(data, actions) {
       // This function sets up the details of the transaction, including the amount and line item details.
@@ -206,12 +210,20 @@ paypal.Buttons({
       return actions.order.create({
         purchase_units: [{
           amount: {
-            value: '0.01'
+            value: cartItemObj.reduce((acc,item) =>{
+                return acc+=item.price
+            }, 0)
           }
         }]
       });
-    }
+    },
+    onApprove: function(data, actions) {
+        // This function captures the funds from the transaction.
+        return actions.order.capture().then(function(details) {
+          // This function shows a transaction success message to your buyer.
+          alert('Transaction completed by ' + details.payer.name.given_name);
+        //   alert('Transaction completed successful ');
+        });
+      }
   
-}
-
-).render('#checkout');
+}).render('#checkout');
