@@ -201,8 +201,11 @@ function showTotal(){
 
 
 
-//checkout
-var data = 
+//paypal checkout
+var data =  cartArr.reduce((acc,item) =>{
+    return acc+=item.price
+}, 0)
+
 paypal.Buttons({
     createOrder: function(data, actions) {
       // This function sets up the details of the transaction, including the amount and line item details.
@@ -210,7 +213,7 @@ paypal.Buttons({
       return actions.order.create({
         purchase_units: [{
           amount: {
-            value: cartItemObj.reduce((acc,item) =>{
+            value:cartItemObj.reduce((acc,item) =>{
                 return acc+=item.price
             }, 0)
           }
